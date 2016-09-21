@@ -21,4 +21,37 @@ describe('the GET Helper', function() {
       error: jasmine.any(Function)
     });
   });
+
+  it("sends over the correct values returned by jQuery",function(done){
+		
+		let returnedValue = null;
+		let value = {test:true};
+		
+		runs(function(){
+			let promise;
+			let $ = require('jquery');
+			
+			$.ajax.mockImplementation(function(obj){
+				obj.success(value);
+			});
+			
+			let restHelper = require.requireActual('../../../app/helpers/restHelper.js');
+			let testURL = 'api/test';
+
+			restHelper.get(testURL).then(function(a){
+				returnedValue = a;
+			});
+			
+			jest.runAllTimers();
+		});
+		
+		waitsFor(function(){
+			return returnedValue;
+		});
+		
+		runs(function(){
+			expect(returnedValue).toEqual(value);
+		})
+	})
+
 });
