@@ -3,6 +3,7 @@
 describe('the GET Helper', function() {
   it('makes a GET request with the correct paramaters', function() {
     // this will be mocked;
+    //srequire.requireActual('../../../app/helpers/restHelper.js');
 		jest.dontMock('../../../app/helpers/restHelper.js');
     let $ = require('jquery');
     let restHelper = require('../../../app/helpers/restHelper.js');
